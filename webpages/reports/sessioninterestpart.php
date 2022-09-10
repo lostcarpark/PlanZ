@@ -35,7 +35,7 @@ SELECT
         AND T.selfselect = 1
         AND TY.selfselect = 1
         AND S.invitedguest = 0
-        AND S.statusid IN (1, 2, 3, 6, 7) ## Brainstorm, Vetted, Scheduled, Edit Me, Assigned
+        AND S.statusid IN (1, 2, 3, 6, 7, 10) ## Brainstorm, Vetted, Scheduled, Edit Me, Assigned
     ORDER BY
         IF(INSTR(P.pubsname, CD.lastname) > 0, CD.lastname, SUBSTRING_INDEX(P.pubsname, ' ', -1)),
         CD.firstname,

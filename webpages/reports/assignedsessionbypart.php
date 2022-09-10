@@ -18,7 +18,7 @@ SELECT DISTINCT
         JOIN ParticipantOnSession POS USING (badgeid)
         JOIN Sessions S USING (sessionid)
     WHERE
-        S.statusid IN (1, 2, 3, 6, 7) ## Brainstorm, Vetted, Scheduled, Edit Me, Assigned
+        S.statusid IN (1, 2, 3, 6, 7, 10) ## Brainstorm, Vetted, Scheduled, Edit Me, Assigned
     ORDER BY
         P.sortedpubsname;
 EOD;
@@ -31,7 +31,7 @@ SELECT
         JOIN Sessions S USING (sessionid)
         JOIN CongoDump CD USING (badgeid)
     WHERE
-        S.statusid IN (1, 2, 3, 6, 7) ## Brainstorm, Vetted, Scheduled, Edit Me, Assigned
+        S.statusid IN (1, 2, 3, 6, 7, 10) ## Brainstorm, Vetted, Scheduled, Edit Me, Assigned
     ORDER BY
         P.badgeid
 EOD;
