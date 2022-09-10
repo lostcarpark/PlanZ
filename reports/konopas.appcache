@@ -1,0 +1,17 @@
+CACHE MANIFEST
+# 2022-09-01 23:17:33
+
+CACHE:
+cap/program.js
+cap/people.js
+cap/title.png
+konopas.min.js
+skin/konopas.css
+skin/icons.png
+skin/Roboto300.ttf
+skin/Roboto500.ttf
+skin/Oswald400.ttf
+favicon.ico
+
+NETWORK:
+*
