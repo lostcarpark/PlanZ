@@ -411,6 +411,7 @@
                             </div>
                         </fieldset>
                     </xsl:if>
+                    <script src="dist/planzReactApp.js"></script>
                     <xsl:if test="$useRegSystem = 1"><!-- show button here if using reg system because data below not editable in that case -->
                         <div class="row mt-3">
                             <button class="btn btn-primary" type="button" name="submitBTN" id="submitBTN"

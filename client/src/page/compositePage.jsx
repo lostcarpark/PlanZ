@@ -1,6 +1,7 @@
 import React from 'react';
 import AdminModulesPage from './admin/adminModulesPage';
 import BrainstormPage from './brainstorm/brainstormPage';
+import MyLinks from './participant/MyLinks';
 import StaffVolunteerPage from './volunteer/staffVolunteerPage';
 import VolunteerSignUpPage from './volunteer/volunteerSignUpPage';
 
@@ -25,6 +26,8 @@ class CompositePage extends React.Component {
             return (<VolunteerSignUpPage />);
         } else if (url.pathname === '/brainstorm.php') {
             return (<BrainstormPage />);
+        } else if (url.pathname === '/my_contact.php') {
+          return (<MyLinks />);
         } else {
             return (<h4>Unknown Page</h4>);
         }

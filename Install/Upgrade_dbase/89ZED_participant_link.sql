@@ -36,9 +36,29 @@ INSERT INTO `link_type` (`link_type_key`, `link_type_name`, `is_initial`, `is_de
 ('WEB', 'Website', 1, 1, 0, '', '', '^http(s)?:\/\/\S+.\S+$'),
 ('TWT', 'Twitter', 1, 0, 5, 'https://twitter.com/', '@', '^\S+$'),
 ('FB', 'Facebook', 1, 0, 10, 'https://www.facebook.com/', 'https://www.facebook.com/', '^\S+$'),
+('AMA', 'Amazon', 0, 0, 20, 'https://www.amazon.com/', 'https://www.amazon.com/', '^\S+$'),
 ('DIS', 'Discord', 0, 0, 20, 'https://discord.com/', 'https://discord.com/', '^\S+$'),
 ('GR', 'Goodreads', 0, 0, 25, 'https://www.goodreads.com/', 'https://www.goodreads.com/', '^\S+$'),
 ('IG', 'Instagram', 0, 0, 30, 'https://www.instagram.com/', 'https://www.instagram.com/', '^\S+$'),
 ('LI', 'LinkedIn', 0, 0, 35, 'https://www.linkedin.com/in/', 'https://www.linkedin.com/in/', '^\S+$'),
+('TIK', 'TikTok', 0, 0, 40, 'https://www.tiktok.com/', 'https://www.tiktok.com/', '^\S+$'),
 ('TCH', 'Twitch', 0, 0, 40, 'https://www.twitch.tv/', 'https://www.twitch.tv/', '^\S+$'),
 ('YT', 'YouTube', 0, 0, 45, 'https://www.youtube.com/', 'https://www.youtube.com/', '^\S+$');
+
+
+
+
+
+## Set up permissions.
+INSERT INTO `PermissionAtoms` (`permatomid`, `permatomtag`, `page`, `notes`)
+VALUES ('2065', 'ce_link_type', 'Edit Configuration Tables', 'enables edit');
+
+INSERT INTO Permissions(permatomid, phaseid, permroleid, badgeid)
+SELECT a.permatomid, null, r.permroleid, null 
+FROM PermissionAtoms a
+JOIN PermissionRoles r ON (r.permrolename = 'Administrator')
+WHERE permatomtag IN  ('ce_link_types');
+
+
+
+INSERT INTO PatchLog (patchname) VALUES ('89ZED_add_participant_link.sql');
