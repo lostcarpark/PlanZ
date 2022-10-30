@@ -27,7 +27,7 @@ class CompositePage extends React.Component {
         } else if (url.pathname === '/brainstorm.php') {
             return (<BrainstormPage />);
         } else if (url.pathname === '/my_contact.php') {
-          return (<MyLinks />);
+            return (<MyLinks />);
         } else {
             return (<h4>Unknown Page</h4>);
         }
