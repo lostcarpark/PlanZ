@@ -22,7 +22,7 @@ SELECT
         LEFT JOIN Schedule SCH USING (sessionid)
     WHERE
            SCH.scheduleid IS NOT NULL
-        OR S.statusid in (1, 2, 3, 6, 7) ## Brainstorm, Vetted, Scheduled, Edit Me, Assigned
+        OR S.statusid in (1, 2, 3, 6, 7, 10) ## Brainstorm, Vetted, Scheduled, Edit Me, Assigned
     ORDER BY
         Trackname, S.sessionid;
 EOD;

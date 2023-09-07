@@ -1,0 +1,21 @@
+.header.participant-header {
+  background-color: #071f37;
+  background-image: linear-gradient(#071f37, #3774a4);
+}
+
+.header.staff-header {
+  background-color: #3c731d;
+  background-image: linear-gradient(#003200, #508731);
+}
+
+.header h1 {
+  color: #fff;
+}
+
+.header-contents img {
+  object-fit: contain;
+  max-height: 250px;
+  max-width: 33%;
+  width: auto;
+  height: auto;
+}

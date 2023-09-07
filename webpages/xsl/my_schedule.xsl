@@ -143,7 +143,7 @@
 					</xsl:otherwise>
 				</xsl:choose>
 			</div>
-			<div>
+			<!--<div>
 				<xsl:attribute name="class">
 					<xsl:choose>
 						<xsl:when test="$allowConfirmation = 'true'">
@@ -155,7 +155,7 @@
 					</xsl:choose>
 				</xsl:attribute>
 				<xsl:value-of select="@comments" />
-			</div>
+			</div>-->
 		</div>
 		<xsl:if test="@badgeid = $badgeid and $allowConfirmation = 'true'">
 			<div class="row mb-2 align-items-baseline">
