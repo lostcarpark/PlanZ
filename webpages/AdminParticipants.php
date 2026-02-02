@@ -220,7 +220,7 @@ if (USE_REG_SYSTEM === FALSE) {
     function yesNoSelectBlock(string $id, string $label, string $help_text = '', bool $display = true) {
         if ($display) {
 ?>
-            <div class="form-group">
+            <div class="form-group px-1">
                 <label for="<?= $id ?>" class="control-label"><?= $label ?></label>
                 <select id="<?= $id ?>" class="yesno mycontrol form-control" disabled="disabled" style="width: auto;">
                     <option value="0" selected="selected">&nbsp</option>
@@ -230,7 +230,7 @@ if (USE_REG_SYSTEM === FALSE) {
 <?php
             if ($help_text) {
 ?>
-            <p class="help-block"><?= $help_text ?></p>
+            <p class="help-block text-muted small"><?= $help_text ?></p>
 <?php
             }
 ?>
@@ -245,39 +245,42 @@ if (USE_REG_SYSTEM === FALSE) {
     }
 ?>
 
-        <div class="container-sm py-2 px-3 my-3 border border-dark rounded">
+        <div class="container-sm py-2 px-2 my-3 border border-dark rounded">
+            <h3>Participant Permission Given</h3>
             <p id="permission-disabled"><strong>Note:</strong> You are not allowed to edit this section.</p>
+            <div class="d-flex">
 <?php
     yesNoSelectBlock(
         'interested',
-        'Participant is interested and available to participate in ' . CON_NAME . ' programming',
+        'Interested and available to participate in ' . CON_NAME . ' programming:',
         'Changing this to <em>No</em> will remove the participant from all sessions.',
     );
     yesNoSelectBlock(
         'share_email',
-        'Participant gives permission to share email with other participants',
+        'Permission to share email with other participants:',
         '',
         ENABLE_SHARE_EMAIL_QUESTION,
     );
     yesNoSelectBlock(
         'use_photo',
-        'Participant gives permission to use photos in promotion of the convention',
+        'Permission to use photos in promotion of the convention:',
         '',
         ENABLE_USE_PHOTO_QUESTION,
     );
     yesNoSelectBlock(
         'allow_streaming',
-        'Participant gives permission to live stream sessions',
+        'Permission to live stream sessions:',
         '',
         ENABLE_ALLOW_STREAMING_QUESTION,
     );
     yesNoSelectBlock(
         'allow_recording',
-        'Participant gives permission to record sessions and make available for catchup',
+        'Permission to record sessions and make available for catchup:',
         '',
         ENABLE_ALLOW_RECORDING_QUESTION,
     );
 ?>
+            </div>
         </div>
 
 <?php

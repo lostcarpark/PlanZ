@@ -102,6 +102,7 @@ EOD;
         if (mysqli_stmt_execute($stmt)) {
             $resultSet = mysqli_stmt_get_result($stmt);
             while ($row = mysqli_fetch_assoc($resultSet)) {
+                if (array_key_exists($row["sessionid"], $sessionsById) {
                 $session = $sessionsById[$row["sessionid"]];
                 if ($session) {
                     $participant = new ScheduledParticipant();
@@ -111,6 +112,7 @@ EOD;
                     $participant->pronouns = $row["pronouns"] ?? '';
 
                     $session->participants[] = $participant;
+                }
                 }
             }
             $stmt->close();

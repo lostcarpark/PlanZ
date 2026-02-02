@@ -123,7 +123,7 @@ function chooseParticipant(badgeid, override) {
         if ($nextBTN)
             $nextBTN.disabled = searchIndex == (badgeList.length - 1);
     }
-    const disableEditPermission = $("#allow-edit-permission").val() === "no";
+    const disableEditPermission = true; //$("#allow-edit-permission").val() === "no";
     $("#badgeid").val($("#bidSPAN_" + badgeidJQSel).text());
     var lastname = $("#lastnameHID_" + badgeidJQSel).val();
     $lastname.val(lastname).prop("defaultValue", lastname).prop("readOnly", false);

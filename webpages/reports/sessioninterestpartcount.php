@@ -14,6 +14,7 @@ SELECT
         P.badgeid,
         P.pubsname,
         COUNT(sessionid) AS interested,
+        (SELECT COUNT(*) FROM ParticipantOnSession POS WHERE POS.badgeid = P.badgeid) AS assigned,
         CD.badgename,
         concat(CD.firstname,' ',CD.lastname) AS name,
         PA.maxprog
@@ -46,6 +47,7 @@ $report['xsl'] =<<<'EOD'
                             <th>Person ID</th>
                             <th>Name for Publications</th>
                             <th>Interested Sessions Count</th>
+                            <th>Assigned Count</th>
                             <th>Max Sessions</th>
                         </tr>
                     </thead>
@@ -72,6 +74,7 @@ $report['xsl'] =<<<'EOD'
                 </xsl:call-template>
             </td>
             <td class="text-center"><xsl:value-of select="@interested" /></td>
+            <td class="text-center"><xsl:value-of select="@assigned" /></td>
             <td class="text-center"><xsl:value-of select="@maxprog" /></td>
         </tr>
     </xsl:template>
