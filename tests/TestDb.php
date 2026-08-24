@@ -78,6 +78,26 @@ final class TestDb
         return $row ?: null;
     }
 
+    // Renames a table out of the way so the next write against it fails — used to
+    // prove SubmitMySchedConstr.php's transaction actually rolls back a failure that
+    // happens partway through the save, not just on the very first statement.
+    public static function disableTable(string $table): void
+    {
+        $db = self::connection();
+        mysqli_query($db, "RENAME TABLE `$table` TO `{$table}_test_disabled`");
+    }
+
+    // Idempotent: safe to call even if the table was never disabled, or was already
+    // restored, so it's safe to use as an unconditional tearDown() safety net.
+    public static function restoreTable(string $table): void
+    {
+        $db = self::connection();
+        $result = mysqli_query($db, "SHOW TABLES LIKE '{$table}_test_disabled'");
+        if (mysqli_num_rows($result) > 0) {
+            mysqli_query($db, "RENAME TABLE `{$table}_test_disabled` TO `$table`");
+        }
+    }
+
     public static function fetchAvailabilityTimes(): array
     {
         $db = self::connection();

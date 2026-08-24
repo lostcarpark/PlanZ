@@ -41,6 +41,13 @@ if ($status == false) {
     $message_error = "The data you entered was incorrect.  Database not updated.<br />" . $messages; // error message
     unset($messages);
 } else {  /* Update DB */
+    // The four writes below (ParticipantAvailability, ParticipantAvailabilityTimes per
+    // row, ParticipantAvailabilityDays, and the DELETE of cleared rows) used to each
+    // commit independently. A failure partway through — e.g. row 3 of
+    // ParticipantAvailabilityTimes — could leave the main record and rows 1-2 saved
+    // while the rest of the submission was silently dropped. Wrapping them in a single
+    // transaction makes the save atomic: either all of it lands, or none of it does.
+    mysqli_begin_transaction($linki);
     $query = "REPLACE ParticipantAvailability SET ";
     $query .= "badgeid='$badgeid', ";
     $query .= "maxprog={$partAvail["maxprog"]}, ";
@@ -48,6 +55,7 @@ if ($status == false) {
     $query .= "otherconstraints=\"" . mysqli_real_escape_string($linki, $partAvail["otherconstraints"]) . "\", ";
     $query .= "numkidsfasttrack={$partAvail["numkidsfasttrack"]};";
     if (!mysqli_query($linki, $query)) {
+        mysqli_rollback($linki);
         $message = $query . "<br />Error updating database.  Database not updated.";
         RenderError($message);
         exit();
@@ -76,6 +84,7 @@ if ($status == false) {
             $query = "REPLACE ParticipantAvailabilityTimes SET ";
             $query .= "badgeid=\"$badgeid\",availabilitynum=$i,starttime=\"$starttime\",endtime=\"$endtime\"";
             if (!mysqli_query($linki, $query)) {
+                mysqli_rollback($linki);
                 $message = $query . "<br />Error updating database.  Database not updated.";
                 RenderError($message);
                 exit();
@@ -90,6 +99,7 @@ if ($status == false) {
         }
         $query = substr($query, 0, -1); // remove extra trailing comma
         if (!mysqli_query($linki, $query)) {
+            mysqli_rollback($linki);
             $message = $query . "<br />Error updating database.  Database not updated.";
             RenderError($message);
             exit();
@@ -107,10 +117,14 @@ if ($status == false) {
     if ($deleteany) {
         $query = substr($query, 0, -2) . ");\n";
         // error_log($query); for debugging only
-        if (!mysqli_query_with_error_handling($query, true)) {
+        if (!mysqli_query($linki, $query)) {
+            mysqli_rollback($linki);
+            $message = $query . "<br />Error updating database.  Database not updated.";
+            RenderError($message);
             exit();
         }
     }
+    mysqli_commit($linki);
     if (!$partAvail = retrieve_participantAvailability_from_db($badgeid, true)) {
         exit();
     }
