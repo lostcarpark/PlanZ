@@ -37,3 +37,4 @@ require_once PLANZ_ROOT . '/my_sched_constr_func.php';
 
 require_once __DIR__ . '/TestDb.php';
 require_once __DIR__ . '/HttpClient.php';
+require_once __DIR__ . '/SessionForge.php';

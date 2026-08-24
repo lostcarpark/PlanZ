@@ -5,6 +5,20 @@ $title = "My Availability";
 require('PartCommonCode.php'); // initialize db; check login;
 //                                  set $badgeid from session
 require('my_sched_constr_func.php');
+// Mirrors the check in my_sched_constr.php's GET path. Without this, a session that
+// went stale between page-load and submit (e.g. isLoggedIn()'s password re-check fails
+// because the participant's password changed) wasn't caught until renderMySchedConstr.php
+// called participant_header() at the very end — by which point the writes below had
+// already run, and participant_header() exits before the $message/$message_error block
+// ever renders, so the user saw only "Session expired" with no indication whether their
+// save had worked. may_I() alone isn't enough here: it only reads the session's cached
+// permission_set, which stays valid even after the underlying password/session goes
+// stale, so isLoggedIn() (the same check participant_header() relies on) is required too.
+if (!isLoggedIn() || !may_I('my_availability')) {
+    $message_error = "You do not currently have permission to view this page.<BR>\n";
+    RenderError($message_error);
+    exit();
+}
 $partAvail = get_participant_availability_from_post();
 $timesXML = retrieve_timesXML();
 $status = validate_participant_availability(); /* return true if OK.  Store error messages in
